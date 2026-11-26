@@ -279,7 +279,8 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
 .bench__note { color: var(--text-3); font-size: 14px; line-height: 1.65; }
 
 .download { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: 48px; align-items: start; }
-.download__card { display: grid; gap: 20px; padding: 26px; position: sticky; top: calc(var(--nav-h) + 24px); }
+.download__cards { display: grid; gap: 16px; position: sticky; top: calc(var(--nav-h) + 24px); }
+.download__card { display: grid; gap: 20px; padding: 26px; }
 .download__title { display: flex; align-items: center; gap: 14px; }
 .download__product { font-weight: 600; font-size: 18px; }
 .download__version { color: var(--text-3); font: 400 14px/1.4 var(--font-mono); }
@@ -291,7 +292,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
 .download__more, .download__mac { font-size: 14px; color: var(--text-3); }
 .download__info h3 { font-size: 18px; margin: 28px 0 12px; }
 .download__info h3:first-child { margin-top: 0; }
-.download__info > p { color: var(--text-2); }
+.download__info > p { color: var(--text-2); margin-top: 24px; }
 
 .list { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: var(--text-2); }
 .list li::marker { color: var(--text-3); }
@@ -331,7 +332,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
   .nav__links { display: none; }
   .nav__inner > .button { margin-left: auto; }
   .download { grid-template-columns: 1fr; gap: 32px; }
-  .download__card { position: static; }
+  .download__cards { position: static; }
   .part, .part--flip { grid-template-columns: 1fr; gap: 20px; }
   .part--flip .media { order: 0; }
 }

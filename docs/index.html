@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PhaseTransition</title>
-  <meta name="description" content="Reconstruct a room from a video, build a scene graph of what is in it, and run a physics simulation in it.">
+  <meta name="description" content="Reconstruct a real space with Gaussian Splatting, build a scene graph of the objects in it, and run a physics simulation in it.">
   <meta property="og:title" content="PhaseTransition">
   <meta property="og:description" content="Reconstruction, scene graph and simulation in one desktop app.">
   <meta property="og:type" content="website">
@@ -34,7 +34,7 @@
       <a href="#simulation">Simulation</a>
       <a href="#download">Download</a>
     </nav>
-    <a class="button button--secondary button--small" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download>Download</a>
+    <a class="button button--secondary button--small" href="#download">Download</a>
   </div>
 </header>
 
@@ -43,20 +43,24 @@
   <section class="hero">
     <div class="hero__inner">
       <h1>PhaseTransition</h1>
-      <p class="hero__lede">A desktop app I built to try one thing end to end: reconstruct a room from a video, build a scene graph of the objects in it, and run a physics simulation in the result.</p>
+      <p class="hero__lede">A desktop app that works from real captures. Give it a video, photos or a scan of a space: it reconstructs the space with Gaussian Splatting, builds a scene graph of the objects in it, and runs a physics simulation in the result.</p>
       <ol class="hero__parts" aria-label="Parts">
         <li><a href="#reconstruction">Reconstruction</a></li>
         <li><a href="#scene-graph">Scene Graph</a></li>
         <li><a href="#simulation">Simulation</a></li>
       </ol>
       <div class="hero__actions">
-        <a class="button button--primary" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download>
+        <a class="button button--primary" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download data-platform-button="windows">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Download for Windows
         </a>
+        <a class="button button--secondary" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download-mac data-platform-button="mac">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download for macOS
+        </a>
         <a class="button button--secondary" href="#demo">Watch demo</a>
       </div>
-      <p class="hero__meta" data-os-note>Windows 10/11 x64 with a Vulkan 1.3 GPU. macOS later.</p>
+      <p class="hero__meta">Windows 10/11 x64 with a Vulkan 1.3 GPU, or macOS 15.5 or later on a Mac with Apple silicon.</p>
     </div>
   </section>
 
@@ -99,8 +103,8 @@
       <h2 id="about-title">About</h2>
     </div>
     <div class="prose">
-      <p>I wanted to see how far one app could go from a casual capture of a room to something you can simulate. PhaseTransition is the result: it chains reconstruction, a scene graph and a physics simulation, and keeps them in one project so each part can use what the previous one found.</p>
-      <p>It runs locally on your own GPU and needs no account. Expect rough edges; bug reports are welcome in <a href="https://github.com/chanchoen/PhaseTransition/issues" data-repo-link="issues">Issues</a>.</p>
+      <p>Simulation is not stable yet in the current version.</p>
+      <p>Bug reports are welcome in <a href="https://github.com/chanchoen/PhaseTransition/issues" data-repo-link="issues">Issues</a>.</p>
     </div>
   </section>
 
@@ -112,7 +116,7 @@
       <div class="part__text">
         <p class="part__index">01</p>
         <h2 id="reconstruction-title">Reconstruction</h2>
-        <p>Start from a video, a folder of photos or an E57 scan. Keyframes are picked from the video and camera poses are solved with COLMAP, which comes with the installer. The room is then reconstructed as Gaussian Splatting on the GPU with Vulkan compute shaders, and checked against held-out views.</p>
+        <p>Start from a video, a set of photos or an E57 scan. Camera poses are estimated with COLMAP, and the scene is reconstructed with Gaussian Splatting.</p>
         <ul class="part__stages" aria-label="Stages"><li>Capture</li><li>Splats</li></ul>
       </div>
     </article>
@@ -126,7 +130,7 @@
       <div class="part__text">
         <p class="part__index">02</p>
         <h2 id="scene-graph-title">Scene Graph</h2>
-        <p>Name the objects you are looking for, such as a chair, a door or a cabinet. They are found in the captured images and placed on the reconstruction as 3D objects, grouped by room. A language model running locally then proposes how the objects relate: what supports what, what is inside, what is hinged or slides.</p>
+        <p>Describe the objects you want to find in a text prompt. They are detected in the captured images and placed on the reconstruction as 3D objects, grouped by room. A language model running locally then proposes how the objects relate to each other, such as support, containment and articulation.</p>
         <ul class="part__stages" aria-label="Stages"><li>Instances</li><li>Graph Build</li></ul>
       </div>
     </article>
@@ -151,36 +155,60 @@
       <h2 id="download-title">Download</h2>
     </div>
     <div class="download">
-      <div class="card download__card">
-        <div class="download__title">
-          <img src="assets/img/app_icon.svg" alt="" width="40" height="40">
-          <div>
-            <p class="download__product">PhaseTransition for Windows</p>
-            <p class="download__version" data-release-version>Latest release</p>
+      <div class="download__cards">
+        <div class="card download__card" data-platform="windows">
+          <div class="download__title">
+            <img src="assets/img/app_icon.svg" alt="" width="40" height="40">
+            <div>
+              <p class="download__product">PhaseTransition for Windows</p>
+              <p class="download__version" data-release-version>Latest release</p>
+            </div>
           </div>
+          <a class="button button--primary button--block" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download>Download for Windows (x64)</a>
+          <dl class="download__facts">
+            <div><dt>Installer</dt><dd data-release-size>—</dd></div>
+            <div><dt>Released</dt><dd data-release-date>—</dd></div>
+            <div class="download__sha"><dt>SHA-256</dt><dd><code data-release-sha>On the release page</code></dd></div>
+          </dl>
         </div>
-        <a class="button button--primary button--block" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download>Download for Windows (x64)</a>
-        <dl class="download__facts">
-          <div><dt>Installer</dt><dd data-release-size>—</dd></div>
-          <div><dt>Released</dt><dd data-release-date>—</dd></div>
-          <div class="download__sha"><dt>SHA-256</dt><dd><code data-release-sha>On the release page</code></dd></div>
-        </dl>
+        <div class="card download__card" data-platform="mac">
+          <div class="download__title">
+            <img src="assets/img/app_icon.svg" alt="" width="40" height="40">
+            <div>
+              <p class="download__product">PhaseTransition for macOS</p>
+              <p class="download__version" data-release-version>Latest release</p>
+            </div>
+          </div>
+          <a class="button button--primary button--block" href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-download-mac>Download for macOS (Apple silicon)</a>
+          <dl class="download__facts">
+            <div><dt>Installer</dt><dd data-release-size>—</dd></div>
+            <div><dt>Released</dt><dd data-release-date>—</dd></div>
+            <div class="download__sha"><dt>SHA-256</dt><dd><code data-release-sha>On the release page</code></dd></div>
+          </dl>
+        </div>
         <p class="download__more"><a href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-repo-link="releases/latest">Release page</a> · <a href="https://github.com/chanchoen/PhaseTransition/releases" data-repo-link="releases">All releases</a></p>
       </div>
       <div class="download__info">
         <h3>Requirements</h3>
         <ul class="list">
-          <li>Windows 10 or 11, 64-bit</li>
-          <li>A GPU with a Vulkan 1.3 driver</li>
+          <li>Windows 10 or 11, 64-bit, with a GPU that has a Vulkan 1.3 driver</li>
+          <li>macOS 15.5 or later on a Mac with Apple silicon (M1 or later)</li>
           <li>About 8 GB of free disk space with the language model</li>
         </ul>
-        <h3>Notes on installing</h3>
+        <h3>Installing on Windows</h3>
         <ul class="list">
           <li>The installer is not code-signed, so Windows SmartScreen may warn. Choose <em>More info</em>, then <em>Run anyway</em>, or compare the SHA-256 first.</li>
           <li>Setup offers to download the language model for the scene graph relations (about 5 GB). You can skip it; everything else works without it.</li>
           <li>It installs for your user account only. Uninstall from <em>Settings → Apps</em>; your projects stay.</li>
-          <li>Free to use for non-commercial purposes. See the <a href="legal/EULA.txt">license</a>.</li>
         </ul>
+        <h3>Installing on macOS</h3>
+        <ul class="list">
+          <li>Open the installer package. It installs PhaseTransition into <em>Applications</em>.</li>
+          <li>The installer is not signed or notarized, so macOS may block it. Open <em>System Settings → Privacy &amp; Security</em> and choose <em>Open Anyway</em>, or compare the SHA-256 first.</li>
+          <li>The installer downloads the language model for the scene graph relations (about 5 GB) unless you clear <em>Relation graph AI model</em> under <em>Customize</em>; everything else works without it. To add it later, run the installer again.</li>
+          <li>To uninstall, move the app to the Trash and, if you downloaded the model, delete <em>/Library/Application Support/PhaseTransition</em>; your projects stay.</li>
+        </ul>
+        <p>Free to use for non-commercial purposes. See the <a href="legal/EULA.txt">license</a>.</p>
       </div>
     </div>
   </section>
@@ -192,11 +220,11 @@
     <div class="releases" data-releases>
       <article class="release card">
         <header class="release__head"><h3>0.1.0</h3><span class="release__tag">First release</span></header>
-        <p>First public release (Windows 10/11 x64).</p>
+        <p>First public release (Windows 10/11 x64; macOS 15.5 or later on Apple silicon).</p>
         <ul class="list">
           <li>Capture: video, photo and E57 input; keyframe extraction and camera pose estimation.</li>
           <li>Reconstruction: Gaussian Splatting optimization on the GPU.</li>
-          <li>Scene graph: objects found from a text prompt and placed in 3D; relations between objects from a local language model (optional 5 GB download during setup).</li>
+          <li>Scene graph: objects found from a text prompt and placed in 3D; relations between objects from a local language model (optional 5 GB download during installation, on both platforms).</li>
           <li>Simulation: physics with articulated bodies, robots and sensors, scenarios and recordings.</li>
           <li>Export: USD scenes for Isaac Sim.</li>
         </ul>

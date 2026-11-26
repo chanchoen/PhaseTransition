@@ -9,13 +9,13 @@
     return `https://github.com/${repo}/${path}`;
   }
 
-  // Download buttons open the latest release page until loadReleases finds its installer.
-  function linkDownloads(url) {
-    document.querySelectorAll("[data-download]").forEach((link) => { link.href = url; });
+  // Download buttons open the latest release page until showLatest finds each platform's installer.
+  function linkDownloads(selector, url) {
+    document.querySelectorAll(selector).forEach((link) => { link.href = url; });
   }
 
   function linkRepo() {
-    linkDownloads(repoUrl("releases/latest"));
+    linkDownloads("[data-download], [data-download-mac]", repoUrl("releases/latest"));
     document.querySelectorAll("[data-repo-link]").forEach((link) => {
       link.href = repoUrl(link.dataset.repoLink);
     });
@@ -24,8 +24,15 @@
   function noteOperatingSystem() {
     const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
     if (!/mac/i.test(platform)) return;
-    const note = document.querySelector("[data-os-note]");
-    if (note) note.textContent = "You're on a Mac. A macOS build comes later; for now there is a Windows installer.";
+    const windows = document.querySelector('[data-platform-button="windows"]');
+    const mac = document.querySelector('[data-platform-button="mac"]');
+    if (!windows || !mac) return;
+    windows.classList.replace("button--primary", "button--secondary");
+    mac.classList.replace("button--secondary", "button--primary");
+    windows.before(mac);
+    const windowsCard = document.querySelector('[data-platform="windows"]');
+    const macCard = document.querySelector('[data-platform="mac"]');
+    if (windowsCard && macCard) windowsCard.before(macCard);
   }
 
   function highlightNavigation() {
@@ -145,18 +152,26 @@
 
   function showLatest(release) {
     const version = release.tag_name.replace(/^v/, "");
-    const asset = release.assets.find((a) => /_x64-setup\.exe$/.test(a.name));
-    if (asset) linkDownloads(asset.browser_download_url);
-    const set = (selector, text) => {
-      const node = document.querySelector(selector);
-      if (node && text) node.textContent = text;
-    };
-    set("[data-release-version]", `Version ${version}`);
-    set("[data-release-date]", formatDate(release.published_at));
-    if (asset) {
-      set("[data-release-size]", formatSize(asset.size));
-      if (asset.digest && asset.digest.startsWith("sha256:")) set("[data-release-sha]", asset.digest.slice(7));
-    }
+    const platforms = [
+      ["windows", "[data-download]", /_(?:windows_)?x64-setup\.exe$/],
+      ["mac", "[data-download-mac]", /_(?:macos_arm64|aarch64)\.pkg$/],
+    ];
+    platforms.forEach(([platform, buttons, pattern]) => {
+      const asset = release.assets.find((a) => pattern.test(a.name));
+      if (asset) linkDownloads(buttons, asset.browser_download_url);
+      const card = document.querySelector(`[data-platform="${platform}"]`);
+      if (!card) return;
+      const set = (selector, text) => {
+        const node = card.querySelector(selector);
+        if (node && text) node.textContent = text;
+      };
+      set("[data-release-version]", `Version ${version}`);
+      set("[data-release-date]", formatDate(release.published_at));
+      if (asset) {
+        set("[data-release-size]", formatSize(asset.size));
+        if (asset.digest && asset.digest.startsWith("sha256:")) set("[data-release-sha]", asset.digest.slice(7));
+      }
+    });
   }
 
   function showReleases(releases) {
