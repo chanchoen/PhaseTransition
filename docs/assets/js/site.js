@@ -3,16 +3,19 @@
 
   const body = document.body;
   const repo = body.dataset.repo;
-  const installerName = body.dataset.installer;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function repoUrl(path) {
     return `https://github.com/${repo}/${path}`;
   }
 
+  // Download buttons open the latest release page until loadReleases finds its installer.
+  function linkDownloads(url) {
+    document.querySelectorAll("[data-download]").forEach((link) => { link.href = url; });
+  }
+
   function linkRepo() {
-    const download = `${repoUrl("releases/latest/download")}/${installerName}`;
-    document.querySelectorAll("[data-download]").forEach((link) => { link.href = download; });
+    linkDownloads(repoUrl("releases/latest"));
     document.querySelectorAll("[data-repo-link]").forEach((link) => {
       link.href = repoUrl(link.dataset.repoLink);
     });
@@ -142,8 +145,8 @@
 
   function showLatest(release) {
     const version = release.tag_name.replace(/^v/, "");
-    const asset = release.assets.find((a) => a.name === installerName)
-      || release.assets.find((a) => /_x64-setup\.exe$/.test(a.name));
+    const asset = release.assets.find((a) => /_x64-setup\.exe$/.test(a.name));
+    if (asset) linkDownloads(asset.browser_download_url);
     const set = (selector, text) => {
       const node = document.querySelector(selector);
       if (node && text) node.textContent = text;
