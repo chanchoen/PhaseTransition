@@ -1,0 +1,1612 @@
+PhaseTransition
+Third-party notices
+
+This product includes software derived from the following third-party projects.
+
+--------------------------------------------------------------------------------
+spz (Niantic Labs)
+https://github.com/nianticlabs/spz
+Commit referenced: affd0ecea7fbb4c265ee119475af7ee5b2997482
+
+Used in: cpp/src/core/io/splat/spz_format_constants.h, cpp/src/core/io/splat/spz_writer.cc,
+         cpp/src/core/io/splat/spz_reader.cc
+
+What was derived: the legacy gzip SPZ container layout (16-byte header, attribute
+stream order) and its quantization mappings (24-bit fixed-point positions, log-scale,
+alpha, DC color with 0.15 scale, SH, version-2 first-three and version-3 smallest-three
+quaternion packing), ported from src/cc/load-spz.cc and src/cc/splat-utils.h and
+reimplemented against the PhaseTransition GaussianSet.
+
+MIT License
+
+Copyright (c) 2024 Niantic Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+stb (Sean Barrett and contributors)
+https://github.com/nothings/stb
+Commit pinned: 2c980bb59875b0d32144a71867fbdebb2f77cd20
+  Source archive (fetched at configure time, not vendored):
+  https://github.com/nothings/stb/archive/2c980bb59875b0d32144a71867fbdebb2f77cd20.tar.gz
+  SHA-256 9a955b1b49a4410088a2e0ee2a9c057c3c907d0c1d75454144cb980aca0ba515
+  stb_image.h        v2.30  SHA-256 594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3
+  stb_image_write.h  v1.16  SHA-256 cbd5f0ad7a9cf4468affb36354a1d2338034f2c12473cf1a8e32053cb6914a05
+  LICENSE                   SHA-256 bebfe904b14301657e4e5d655c811d51fd31b97c455b9cc2d8600d6bac6cff63
+  (cpp/cmake/external/fetch_content/stb.cmake verifies the three file hashes after populate and fails the
+  configure on a mismatch; until B3-3 the same bytes were vendored under third_party/stb.)
+
+Used in: cpp/cmake/external/fetch_content/stb.cmake (fetch and hash check; target phase_external_stb),
+         cpp/src/wrapped_external/stb_image_include.h, cpp/src/wrapped_external/stb_image_write_include.h,
+         cpp/src/core/io/image/stb_implementation.cc (the single implementation unit),
+         cpp/src/core/io/image/image_reader.cc, cpp/src/core/io/image/image_writer.cc
+
+What is used: the headers are used unmodified. stb_image decodes PNG and JPEG
+(STBI_ONLY_PNG, STBI_ONLY_JPEG, STBI_NO_STDIO); stb_image_write encodes PNG and JPEG
+(STBI_WRITE_NO_STDIO).
+
+stb is dual-licensed; PhaseTransition uses it under Alternative A (MIT). Full text of the
+LICENSE file at the pinned commit:
+
+This software is available under 2 licenses -- choose whichever you prefer.
+------------------------------------------------------------------------------
+ALTERNATIVE A - MIT License
+Copyright (c) 2017 Sean Barrett
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+------------------------------------------------------------------------------
+ALTERNATIVE B - Public Domain (www.unlicense.org)
+This is free and unencumbered software released into the public domain.
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+NVIDIA PhysX SDK 5 (NVIDIA Corporation)
+https://github.com/NVIDIA-Omniverse/PhysX
+Release tag: 107.3-physx-5.6.1
+  Source archive (fetched at configure time, not vendored):
+  https://github.com/NVIDIA-Omniverse/PhysX/archive/refs/tags/107.3-physx-5.6.1.tar.gz
+  SHA-256 f46c5048566b12d1fbe4fa7fd0ab1c98db1b5a0db606882a4a5018ba9ce79d35
+
+Used in: cpp/cmake/external/physx.cmake (fetch, patch and static CPU-only build of
+         PhysXFoundation, PhysXCommon, PhysX, PhysXCooking, PhysXExtensions, PhysXPvdSDK),
+         cpp/cmake/external/physx/apple_arm64_patch.cmake,
+         cpp/cmake/external/physx/windows_patch.cmake,
+         cpp/src/wrapped_external/physx_include.h,
+         cpp/src/simulation/physics/physics_world_with_physx.cc
+
+What is used: the SDK is linked as static libraries. For macOS arm64 the build applies small
+source modifications (cpp/cmake/external/physx/apple_arm64_patch.cmake): preprocessor
+platform gates in foundation headers/sources, the NEON vector-math selection, one overload
+disambiguation cast, the serialization platform tag, and build-flag/output-path adjustments.
+On Windows the build additionally edits only the Windows platform CMake script
+(cpp/cmake/external/physx/windows_patch.cmake): no packman DLL copy step, warnings not errors.
+Source files carry NVIDIA Corporation, AGEIA Technologies and NovodeX AG copyright notices,
+all distributed under the license below.
+
+BSD 3-Clause License
+
+Copyright (c) 2008-2025, NVIDIA Corporation
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+ * Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+   
+ * Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+   
+ * Neither the name of NVIDIA CORPORATION nor the names of its
+   contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS "AS IS" AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+OpenUSD (Pixar Animation Studios)
+https://github.com/PixarAnimationStudios/OpenUSD
+Release linked: v26.08 (source tarball SHA-256
+  4bccbb95cddda1dbeef2f74a08b9456352f2aa91bfd4578c0c613009c7950149)
+
+Used in: cpp/src/wrapped_external/usd_include.h (single entry point),
+         cpp/src/simulation/usd_physics/ (UsdPhysicsReader, UsdPhysicsWriter, UsdStageInspector),
+         cpp/cmake/external/openusd.cmake (pinned configure-time build).
+
+What is used: the unmodified library, built as a monolithic shared library (libusd_ms) without
+Python or imaging. The build removes unused schema libraries from pxr/usd/CMakeLists.txt; no
+OpenUSD source file is modified or copied into this repository. PhaseTransition code only calls
+its public API.
+
+OpenUSD is licensed under the Tomorrow Open Source Technology License 1.0 (Apache License 2.0
+with a modified Section 6 "Trademarks"); the license text and the licenses of the third-party
+components it bundles are in LICENSE.txt of the release and must accompany any binary
+distribution. Its NOTICE file reads:
+
+    Universal Scene Description
+    Copyright 2016 Pixar
+    All rights reserved.
+
+    This product includes software developed at:
+    Pixar (http://www.pixar.com/).
+
+--------------------------------------------------------------------------------
+oneTBB (UXL Foundation, formerly Intel)
+https://github.com/uxlfoundation/oneTBB
+Release linked: v2021.12.0 (source tarball SHA-256
+  c7bb7aa69c254d91b8f0041a71c5bcc3936acb64408a1719aec0b2b7639dd84f)
+
+Used in: runtime dependency of OpenUSD, built by cpp/cmake/external/openusd.cmake.
+
+What is used: the unmodified tbb library (tbbmalloc disabled). Licensed under the Apache
+License, Version 2.0; Copyright (c) 2005-2024 Intel Corporation. The license text and
+third-party-programs.txt of the release must accompany any binary distribution.
+
+--------------------------------------------------------------------------------
+ONNX Runtime (Microsoft Corporation) and the Windows ML runtime with DirectML
+https://onnxruntime.ai, https://www.nuget.org/packages/Microsoft.ML.OnnxRuntime,
+https://www.nuget.org/packages/Microsoft.Windows.AI.MachineLearning
+Release linked (cpp/cmake/external/fetch_content/onnxruntime.cmake; every package from NuGet's
+v3 flat container, api.nuget.org):
+macOS and Linux: the NuGet package Microsoft.ML.OnnxRuntime 1.28.0 (SHA-256
+  769d1d3ea8ab6cd69f737c9dd4d4462aa4ad0ccfa106eaf506efc40d7bead5db), runtimes osx-arm64 and
+  linux-x64, under the MIT License below.
+Windows: the NuGet package Microsoft.Windows.AI.MachineLearning 2.5.96 (SHA-256
+  35d6e84feb4142e8cecaf36704fa3ab0fc8251d892850fb80e8341f7d09653a3), which carries ONNX Runtime
+  1.28.3 (onnxruntime.dll) and DirectML 1.15.4 (DirectML.dll). Those two files are distributed as
+  "Distributable Code" under the Microsoft Software License Terms of that package, shipped in
+  <bundle>/licenses/windowsml/license.txt; the terms of this product's end-user license agreement
+  carry the protections those terms require. Microsoft, Windows and DirectML are trademarks of the
+  Microsoft group of companies; their use here does not imply endorsement.
+
+Used in: cpp/src/wrapped_external/onnxruntime_include.h (single entry point),
+         cpp/src/infrastructure/onnx/ (in-process ONNX inference),
+         cpp/cmake/external/fetch_content/onnxruntime.cmake (pinned NuGet download).
+
+What is used: the unmodified shared libraries of the release, loaded by the engine library.
+ThirdPartyNotices.txt of the package lists the third-party components compiled into
+them and their licenses; it ships with every binary distribution in
+<bundle>/licenses/onnxruntime/.
+
+MIT License
+
+Copyright (c) Microsoft Corporation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+zlib (Jean-loup Gailly and Mark Adler)
+https://zlib.net
+Release: 1.3.1
+  Source archive (fetched at configure time, not vendored):
+  https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz
+  SHA-256 9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23
+
+Used in: cpp/cmake/external/zlib.cmake (on every platform the unmodified sources are compiled
+         into a static library), cpp/src/wrapped_external/zlib_include.h
+
+zlib License
+
+  (C) 1995-2024 Jean-loup Gailly and Mark Adler
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+--------------------------------------------------------------------------------
+Vulkan-Headers (The Khronos Group Inc.)
+https://github.com/KhronosGroup/Vulkan-Headers
+Release: v1.4.328
+  Source archive (fetched at configure time, not vendored; in every build, whose renderer is
+  Vulkan):
+  https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/v1.4.328.tar.gz
+  SHA-256 3ad56d387179b47dd632432ccf989bbb69773e1d732692b7bbad9c4d36aa1304
+
+Used in: cpp/cmake/external/vulkan_headers.cmake (fetch), cpp/src/wrapped_external/vulkan_include.h (single
+         entry point), cpp/src/infrastructure/rendering/vulkan/ (compiled into phase_infrastructure
+         and so into phase_engine)
+
+What is used: the unmodified C API headers (vulkan/vulkan.h with vulkan/vk_platform.h,
+vulkan/vulkan_core.h and the vk_video/ headers it includes), with VK_NO_PROTOTYPES. Nothing links the Vulkan loader; the
+entry points are fetched at run time.
+
+The repository's files are licensed under Apache-2.0 or, where a file says
+"SPDX-License-Identifier: Apache-2.0 OR MIT", under either license (LICENSE.md, LICENSES/ of the
+release). The C headers used here carry "SPDX-License-Identifier: Apache-2.0".
+
+  Copyright 2015-2025 The Khronos Group Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use these files
+  except in compliance with the License. You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+  express or implied. See the License for the specific language governing permissions and
+  limitations under the License.
+
+--------------------------------------------------------------------------------
+MoltenVK (The Brenwill Workshop Ltd.; Khronos Group)
+https://github.com/KhronosGroup/MoltenVK
+Release: v1.4.2, the prebuilt release archive (downloaded at configure time, not vendored; in the
+  macOS build, where it is the Vulkan implementation):
+  https://github.com/KhronosGroup/MoltenVK/releases/download/v1.4.2/MoltenVK-macos.tar
+  SHA-256 f95765a6229cb7b915990a2890ce12ebe36a730b021545d3d52ae69ce4c4024e
+
+Used in: cpp/cmake/external/fetch_content/moltenvk.cmake (download),
+         cpp/src/infrastructure/rendering/vulkan/platform/vulkan_library_accessor_macos.cc (opens
+         the unmodified libMoltenVK.dylib at run time; the engine does not link it)
+
+Licensed under the Apache License, Version 2.0 (the archive's LICENSE, bundled as
+licenses/moltenvk_LICENSE):
+
+  Copyright (c) 2015-2026 The Brenwill Workshop Ltd. (http://www.brenwill.com)
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+  except in compliance with the License. You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software distributed under the
+  License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+  express or implied. See the License for the specific language governing permissions and
+  limitations under the License.
+
+--------------------------------------------------------------------------------
+GLFW (Marcus Geelnard, Camilla Löwy)
+https://github.com/glfw/glfw
+Release: 3.4 (commit 7b6aead9fb88b3623e3b3725ebb42670cbe4c579), cloned at configure time, not
+  vendored; in the macOS and Windows builds of phase_viewer only (its window and input)
+
+Used in: cpp/cmake/external/fetch_content/glfw.cmake (fetch, static library),
+         cpp/src/wrapped_external/glfw_include.h and glfw_native_include.h (single entry points),
+         cpp/src/adapters/viewer_app/ (linked into phase_viewer, not into phase_engine)
+
+  Copyright (c) 2002-2006 Marcus Geelnard
+  Copyright (c) 2006-2019 Camilla Löwy
+
+  This software is provided 'as-is', without any express or implied
+  warranty. In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would
+     be appreciated but is not required.
+
+  2. Altered source versions must be plainly marked as such, and must not
+     be misrepresented as being the original software.
+
+  3. This notice may not be removed or altered from any source
+     distribution.
+
+--------------------------------------------------------------------------------
+Vulkan Memory Allocator (Advanced Micro Devices, Inc.)
+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
+Release: v3.5.0 (commit 0f1a757da579831283413295cc7f3b47eb521c77), cloned at configure time,
+  not vendored; in every build (the Vulkan renderer)
+
+Used in: cpp/cmake/external/fetch_content/vma.cmake (fetch), cpp/src/wrapped_external/vma_include.h
+         (single entry point), cpp/src/infrastructure/rendering/vulkan/memory/vulkan_allocator.cc
+         (the one implementation translation unit, compiled into phase_engine)
+
+What is used: the unmodified single header include/vk_mem_alloc.h, with
+VMA_STATIC_VULKAN_FUNCTIONS 0 and VMA_DYNAMIC_VULKAN_FUNCTIONS 1.
+
+  Copyright (c) 2017-2026 Advanced Micro Devices, Inc. All rights reserved.
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+libE57Format (Andy Maloney, PTC Inc., Stan Coleby and contributors)
+https://github.com/asmaloney/libE57Format
+Release used: v3.4.1 (commit 4e4b58f8a742ebf1b6b6f2eba2fdf7ace380d18f), fetched at build time
+
+Used in: cpp/src/wrapped_external/e57_reader_include.h, cpp/src/core/io/point_cloud/point_cloud_e57_reader.cc
+         (every build)
+
+What is used: the library, unmodified, compiled into the engine as a static library to read
+ASTM E57 point clouds. It needs Xerces-C (Apache-2.0), built from source (see below).
+
+Boost Software License - Version 1.0 - August 17th, 2003
+
+Permission is hereby granted, free of charge, to any person or organization
+obtaining a copy of the software and accompanying documentation covered by
+this license (the "Software") to use, reproduce, display, distribute,
+execute, and transmit the Software, and to prepare derivative works of the
+Software, and to permit third-parties to whom the Software is furnished to
+do so, all subject to the following:
+
+The copyright notices in the Software and this entire statement, including
+the above license grant, this restriction and the following disclaimer,
+must be included in all copies of the Software, in whole or in part, and
+all derivative works of the Software, unless such copies or derivative
+works are solely in the form of machine-executable object code generated by
+a source language processor.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+CRC++ (Daniel Bahr) - bundled with libE57Format v3.4.1 as extern/CRCpp
+https://github.com/d-bahr/CRCpp
+
+Used in: compiled into the libE57Format static library (E57 page checksums).
+
+CRC++
+Copyright (c) 2022, Daniel Bahr
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of CRC++ nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+Apache Xerces-C++ 3.2.5 (The Apache Software Foundation)
+https://xerces.apache.org/xerces-c/
+Release: 3.2.5
+  Source archive (fetched and built at configure time, not vendored):
+  https://archive.apache.org/dist/xerces/c/3/sources/xerces-c-3.2.5.tar.gz
+  SHA-256 545cfcce6c4e755207bd1f27e319241e50e37c0c27250f11cda116018f1ef0f5
+
+Used by: libE57Format (E57 XML section parsing). The unmodified sources are compiled into a
+static library (cpp/cmake/external/xerces_c.cmake; transcoder iconv, in-memory message loader, no
+network accessor) and linked into the engine library on every platform. Licensed under the
+Apache License, Version 2.0; its NOTICE file follows, then the license text.
+
+   =========================================================================
+   ==  NOTICE file corresponding to section 4(d) of the Apache License,   ==
+   ==  Version 2.0, in this case for the Apache Xerces distribution.      ==
+   =========================================================================
+
+   This product includes software developed by
+   The Apache Software Foundation (http://www.apache.org/).
+
+   Portions of this software were originally based on the following:
+     - software copyright (c) 1999, IBM Corporation., http://www.ibm.com.
+
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+--------------------------------------------------------------------------------
+COLMAP (ETH Zurich and UNC Chapel Hill; Johannes Schönberger)
+https://github.com/colmap/colmap
+Bundled form (preferred; cpp/cmake/external/fetch_content/colmap.cmake, built by the default
+configure): a CLI-only build of COLMAP 4.2.1 made by this product's build from pinned sources -
+GUI, OpenGL, CGAL, CUDA, ONNX, downloads and the AGPL LSD line detector disabled - with every
+dependency compiled from source as well: Ceres Solver 2.2.0 (BSD-3-Clause; Eigen's sparse solvers
+only), SuiteSparse 7.12.1 CHOLMOD with SuiteSparse_config, AMD, CAMD, COLAMD and CCOLAMD (BSD-3-
+Clause; CHOLMOD's Check, Cholesky and Partition modules LGPL-2.1+, its MatrixOps, Modify and
+Supernodal modules GPL-2.0+ - user decision 2026-11-13, the license is not a blocker for now),
+glog 0.7.1 and gflags 2.2.2 (BSD-3-Clause), Eigen 3.4.0 (MPL-2.0), METIS 5.1.0 with GKlib
+(Apache-2.0), SQLite 3.54.1 (public domain), Boost 1.89.0 Graph and ProgramOptions (BSL-1.0), the
+LLVM OpenMP runtime 21.1.8 (Apache-2.0 WITH LLVM-exception; macOS), PoseLib (BSD-3-Clause), faiss
+1.14.1 (MIT), COLMAP's own VLFeat (BSD-2-Clause) and PoissonRecon (MIT) sources, all linked into
+the program; and OpenImageIO 3.1.9.0 (Apache-2.0) as two shared libraries into which its own
+pinned dependencies are linked statically: Imath 3.1.10, OpenEXR 3.3.5, OpenColorIO 2.4.2 and
+pystring 1.1.4 (BSD-3-Clause), yaml-cpp 0.8.0, fmt 10.2.1, robin-map 1.4.0 and libdeflate 1.23
+(MIT), minizip-ng 4.0.10 (Zlib), libjpeg-turbo 3.1.2 (IJG, BSD-3-Clause, Zlib), libtiff 4.7.1
+(libtiff) and libpng 1.6.50 (libpng-2.0). On macOS BLAS/LAPACK, zlib and expat are the operating
+system's. On Windows they are bundled: OpenBLAS 0.3.30 as openblas.dll (BSD-3-Clause, with the
+reference LAPACK of netlib compiled in, modified BSD; licenses/colmap/openblas_*), and zlib and
+expat (MIT) as OpenImageIO's own shared dependency builds. This software is based in part on the
+work of the Independent JPEG Group (libjpeg-turbo). The engine runs it as a separate process (Pose Solve, "Solve from Images"), with the
+vocabulary tree COLMAP 3.11.1 published (colmap/share/colmap/, cpp/cmake/external/fetch_content/
+colmap_vocab_tree.cmake) for loop detection. The license text of every one of these ships in
+<bundle>/licenses/colmap/; the pinned URLs, SHA-256 checksums and options are recorded in
+<bundle>/manifest.json (colmap.build) - user decisions 2026-10-23 ("bundle"), 2026-10-24 (built by
+CMake from pinned sources) and 2026-11-13 (COLMAP 4.x).
+Fallback form (package.py --colmap <path>, or auto when the build has no COLMAP of its own): the
+distribution's COLMAP program and its shared libraries, with the distribution's copyright files in
+<bundle>/licenses/debian/. Those binaries include GPL- and AGPL-licensed components (COLMAP's
+src/thirdparty/LSD AGPL-3+, SuiteSparse SPQR and CHOLMOD Supernodal GPL-2+, FreeImage's GPL
+option, GMP's LGPL-3+/GPL-2+ dual license, Qt 5 LGPL-3); their source is the distribution's source
+packages (apt source <package>), and a written offer accompanies any binary distribution.
+
+Copyright (c), ETH Zurich and UNC Chapel Hill. All rights reserved.
+(COPYING.txt of COLMAP 4.2.1; earlier releases: Copyright (c) 2018-2023 ETH Zurich and UNC
+Chapel Hill, Copyright (c) 2016-2023 Johannes Schönberger.)
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+   * Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+   * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+   * Neither the name of ETH Zurich and UNC Chapel Hill nor the names of
+     its contributors may be used to endorse or promote products derived
+     from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+Geogram (Bruno Levy, Inria)
+https://github.com/BrunoLevy/geogram
+Release: v1.9.9 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/geogram.cmake (the library only, built as a static
+         library and linked into the engine library), cpp/src/wrapped_external/geogram_delaunay_include.h,
+         cpp/src/core/geometry/convex_hull/convex_hull_calculator.cc (3D Delaunay convex hull)
+
+Third-party code compiled into Geogram and so into the engine library (src/lib/geogram/third_party/,
+unmodified; the license texts ship in <bundle>/licenses/geogram_*): libMeshb 7.x (MIT, Loic Marechal, INRIA),
+RPly (MIT, Copyright (C) 2003-2015 Diego Nehab), PoissonRecon (MIT, Michael Kazhdan and Matthew
+Bolitho), xatlas (MIT, Copyright (c) 2018-2019 Jonathan Young), AMGCL (MIT, Denis Demidov),
+zlib (zlib license, Jean-loup Gailly and Mark Adler) and Jonathan Richard Shewchuk's robust
+geometric predicates (public domain); OpenNL is part of Geogram (same license). Geogram's
+optional TetGen (AGPL), Triangle (non-commercial), Lua and HLBFGS are disabled
+(cpp/cmake/external/fetch_content/geogram.cmake).
+
+BSD 3-Clause License
+
+Copyright (c) 2000-2022 Inria
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+* Neither the name of Inria nor the names of its
+contributors may be used to endorse or promote products derived from this
+software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+nlohmann/json (Niels Lohmann)
+https://github.com/nlohmann/json
+Release: v3.12.0 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/json.cmake (header only), cpp/src/wrapped_external/json_include.h
+
+MIT License
+
+MIT License 
+
+Copyright (c) 2013-2025 Niels Lohmann
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+tinyply (Dimitri Diakopoulos)
+https://github.com/ddiakopoulos/tinyply
+Release: 2.3.4 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/tiny_ply.cmake (header only), cpp/src/wrapped_external/tinyply_include.h
+
+Public domain (Unlicense), or at your option the 2-clause BSD license
+
+This software is in the public domain. Where that dedication is not recognized, you are granted a
+perpetual, irrevocable license to copy, distribute, and modify this file as you see fit. If these
+terms are not suitable to your organization, you may choose to license it under the terms of the
+2-clause simplified BSD.
+
+--------------------------------------------------------------------------------
+tinyobjloader (Syoyo Fujita and contributors)
+https://github.com/tinyobjloader/tinyobjloader
+Release: v2.0.0rc13 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/tiny_obj_loader.cmake (header only),
+         cpp/src/wrapped_external/tinyobjloader_include.h,
+         cpp/src/core/io/obj/tinyobjloader_implementation.cc (the single implementation unit),
+         cpp/src/core/io/obj/mesh_obj_reader.cc
+
+What is used: tiny_obj_loader.h unmodified (OBJ parsing with its built-in triangulation). The
+optional mapbox/earcut.hpp it ships is not compiled (TINYOBJLOADER_USE_MAPBOX_EARCUT is not set).
+
+The MIT License (MIT)
+
+Copyright (c) 2012-2019 Syoyo Fujita and many contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+tinygltf (Syoyo Fujita, Aurélien Chatelain and contributors)
+https://github.com/syoyo/tinygltf
+Release: v2.9.7 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/tiny_gltf.cmake (header only),
+         cpp/src/wrapped_external/tinygltf_include.h,
+         cpp/src/core/io/gltf/tinygltf_implementation.cc (the single implementation unit),
+         cpp/src/core/io/gltf/mesh_gltf_reader.cc, cpp/src/core/io/gltf/mesh_gltf_writer.cc
+
+What is used: tiny_gltf.h unmodified, compiled with TINYGLTF_NO_INCLUDE_JSON (it parses with the
+nlohmann/json listed above, not its bundled json.hpp), TINYGLTF_NO_STB_IMAGE,
+TINYGLTF_NO_STB_IMAGE_WRITE and TINYGLTF_NO_EXTERNAL_IMAGE (no image is decoded or written; the
+stb copies it ships are not compiled).
+
+MIT License
+
+Copyright (c) 2017 Syoyo Fujita, Aurélien Chatelain and many contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+ufbx (Samuli Raivio)
+https://github.com/ufbx/ufbx
+Release: v0.23.1 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/ufbx.cmake (single source),
+         cpp/src/wrapped_external/ufbx_include.h,
+         cpp/src/core/io/fbx/ufbx_implementation.cc (compiles ufbx.c as C++),
+         cpp/src/core/io/fbx/mesh_fbx_reader.cc, cpp/src/core/io/fbx/fbx_mesh_converter.cc
+
+What is used: ufbx.h and ufbx.c unmodified, compiled with UFBX_REAL_IS_FLOAT.
+
+ufbx is dual-licensed; PhaseTransition uses it under Alternative A (MIT). Full text of the
+LICENSE file at the pinned tag:
+
+------------------------------------------------------------------------------
+This software is available under 2 licenses -- choose whichever you prefer.
+------------------------------------------------------------------------------
+ALTERNATIVE A - MIT License
+Copyright (c) 2020 Samuli Raivio
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+------------------------------------------------------------------------------
+ALTERNATIVE B - Public Domain (www.unlicense.org)
+This is free and unencumbered software released into the public domain.
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
+software, either in source code form or as a compiled binary, for any purpose,
+commercial or non-commercial, and by any means.
+In jurisdictions that recognize copyright laws, the author or authors of this
+software dedicate any and all copyright interest in the software to the public
+domain. We make this dedication for the benefit of the public at large and to
+the detriment of our heirs and successors. We intend this dedication to be an
+overt act of relinquishment in perpetuity of all present and future rights to
+this software under copyright law.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+----------------------------------------
+
+--------------------------------------------------------------------------------
+nanoflann (Jose Luis Blanco-Claraco and contributors)
+https://github.com/jlblancoc/nanoflann
+Release: v1.7.1 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/nanoflann.cmake (header only), cpp/src/wrapped_external/nanoflann_include.h
+
+BSD 2-Clause License
+
+Software License Agreement (BSD License)
+
+Copyright 2008-2009  Marius Muja (mariusm@cs.ubc.ca). All rights reserved.
+Copyright 2008-2009  David G. Lowe (lowe@cs.ubc.ca). All rights reserved.
+Copyright 2011 Jose L. Blanco (joseluisblancoc@gmail.com). All rights reserved.
+
+THE BSD LICENSE
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+meshoptimizer (Arseny Kapoulkine)
+https://github.com/zeux/meshoptimizer
+Release: v1.3 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/meshoptimizer.cmake (sources compiled into the engine)
+
+MIT License
+
+MIT License
+
+Copyright (c) 2016-2026 Arseny Kapoulkine
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+V-HACD (Khaled Mamou, John W. Ratcliff)
+https://github.com/kmammou/v-hacd
+Release: v4.1.0 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/vhacd.cmake (header only)
+
+BSD 3-Clause License
+
+BSD 3-Clause License
+
+Copyright (c) 2011, Khaled Mamou (kmamou at gmail dot com)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+pugixml (Arseny Kapoulkine)
+https://github.com/zeux/pugixml
+Release: v1.15 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/pugixml.cmake (pugixml.cpp compiled into the engine)
+
+MIT License
+
+MIT License
+
+Copyright (c) 2006-2025 Arseny Kapoulkine
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+utf8proc (Steven G. Johnson, Jiahao Chen, Tony Kelman, Jonas Fonseca and contributors)
+https://github.com/JuliaStrings/utf8proc
+Release: v2.10.0 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/utf8proc.cmake (utf8proc.c compiled into the engine)
+
+MIT License ("MIT expat") and the Unicode data license
+
+## utf8proc license ##
+
+**utf8proc** is a software package originally developed
+by Jan Behrens and the rest of the Public Software Group, who
+deserve nearly all of the credit for this library, that is now maintained by the Julia-language developers.  Like the original utf8proc,
+whose copyright and license statements are reproduced below, all new
+work on the utf8proc library is licensed under the [MIT "expat"
+license](http://opensource.org/licenses/MIT):
+
+*Copyright &copy; 2014-2021 by Steven G. Johnson, Jiahao Chen, Tony Kelman, Jonas Fonseca, and other contributors listed in the git history.*
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+## Original utf8proc license ##
+
+*Copyright (c) 2009, 2013 Public Software Group e. V., Berlin, Germany*
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+## Unicode data license ##
+
+This software contains data (`utf8proc_data.c`) derived from processing
+the Unicode data files. The following license applies to that data:
+
+**COPYRIGHT AND PERMISSION NOTICE**
+
+*Copyright (c) 1991-2007 Unicode, Inc. All rights reserved. Distributed
+under the Terms of Use in http://www.unicode.org/copyright.html.*
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of the Unicode data files and any associated documentation (the "Data
+Files") or Unicode software and any associated documentation (the
+"Software") to deal in the Data Files or Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, and/or sell copies of the Data Files or Software, and
+to permit persons to whom the Data Files or Software are furnished to do
+so, provided that (a) the above copyright notice(s) and this permission
+notice appear with all copies of the Data Files or Software, (b) both the
+above copyright notice(s) and this permission notice appear in associated
+documentation, and (c) there is clear notice in each modified Data File or
+in the Software as well as in the documentation associated with the Data
+File(s) or Software that the data or software has been modified.
+
+THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
+THIRD PARTY RIGHTS. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS
+INCLUDED IN THIS NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR
+CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THE DATA FILES OR SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall
+not be used in advertising or otherwise to promote the sale, use or other
+dealings in these Data Files or Software without prior written
+authorization of the copyright holder.
+
+Unicode and the Unicode logo are trademarks of Unicode, Inc., and may be
+registered in some jurisdictions. All other trademarks and registered
+trademarks mentioned herein are the property of their respective owners.
+
+--------------------------------------------------------------------------------
+LZ4 library (Yann Collet)
+https://github.com/lz4/lz4
+Release: v1.10.0 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/lz4.cmake (lib/lz4.c compiled into the engine)
+
+BSD 2-Clause License
+
+LZ4 Library
+Copyright (c) 2011-2020, Yann Collet
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+TinyEXIF (Seacave)
+https://github.com/cdcseacave/TinyEXIF
+Release: 1.0.3 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/tiny_exif.cmake (TinyEXIF.cpp compiled into the engine, without XMP)
+
+BSD 2-Clause License
+
+Copyright (c) 2015-2017 Seacave
+  cdc.seacave@gmail.com
+  All rights reserved.
+
+  Based on the easyexif library (2013 version)
+    https://github.com/mayanklahiri/easyexif
+  of Mayank Lahiri (mlahiri@gmail.com).
+  
+  Redistribution and use in source and binary forms, with or without 
+  modification, are permitted provided that the following conditions are met:
+
+   - Redistributions of source code must retain the above copyright notice, 
+     this list of conditions and the following disclaimer.
+   - Redistributions in binary form must reproduce the above copyright notice, 
+     this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY EXPRESS 
+  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN 
+  NO EVENT SHALL THE FREEBSD PROJECT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
+  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+BLAKE3 (Jack O'Connor, Samuel Neves and contributors)
+https://github.com/BLAKE3-team/BLAKE3
+Release: 1.8.2 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/blake3.cmake (the C implementation, built static)
+
+CC0 1.0 Universal (public domain dedication); also available under Apache-2.0
+
+PhaseTransition uses BLAKE3 under CC0 1.0 Universal. To the extent possible under law, the authors
+have waived all copyright and related or neighboring rights to BLAKE3.
+https://creativecommons.org/publicdomain/zero/1.0/
+
+--------------------------------------------------------------------------------
+llama.cpp / ggml (The ggml authors)
+https://github.com/ggml-org/llama.cpp
+Release: b12211, the prebuilt release archives (downloaded at configure time, not vendored):
+  https://github.com/ggml-org/llama.cpp/releases/download/b12211/llama-b12211-bin-win-vulkan-x64.zip
+  SHA-256 20954cbad1a4626436c6ebaed5e48477f68427b075934689f360301ac426a2f1
+  https://github.com/ggml-org/llama.cpp/releases/download/b12211/llama-b12211-bin-macos-arm64.tar.gz
+  SHA-256 4da4edb437358d31d55938ad849d262ca31b0e0ffb35e9caedb727a0cd5a8f0f
+  and the source archive of the same tag, for the C headers only:
+  https://github.com/ggml-org/llama.cpp/archive/refs/tags/b12211.tar.gz
+  SHA-256 5b6c04c4f38f7afc39cbbe22180f8caedd76cd85c131cfb968511aeae27c191a
+
+Used in: cpp/cmake/external/fetch_content/llama_cpp.cmake (download, staging into <Config>/llama/),
+         cpp/src/wrapped_external/llama_include.h (declarations only),
+         cpp/src/infrastructure/language/ (opens the unmodified llama, ggml and ggml backend
+         libraries at run time; the engine does not link them)
+
+What is used: the unmodified shared libraries of the release (llama, ggml-base, ggml, the Vulkan
+backend and the CPU backend variants on Windows; libllama and libggml with the Metal, CPU, BLAS
+and RPC backends on macOS). The Windows archive also carries libomp.dll, the LLVM OpenMP runtime,
+under the Apache License v2.0 with LLVM Exceptions (the archive's LICENSE-LLVM-OpenMP, which ships
+with every Windows binary distribution).
+
+MIT License
+
+Copyright (c) 2023-2026 The ggml authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+glog (Google Inc.)
+https://github.com/google/glog
+Release: v0.7.1 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/glog.cmake (static library linked into the engine; the logging of Hydra and config_utilities)
+
+BSD-3-Clause
+
+Copyright (c) 2024, Google Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+    * Neither the name of Google Inc. nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+yaml-cpp (Jesse Beder and contributors)
+https://github.com/jbeder/yaml-cpp
+Release: 0.8.0 (git tag, fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/yaml_cpp.cmake (sources compiled into the engine; config_utilities' YAML parser)
+
+MIT License
+
+Copyright (c) 2008-2015 Jesse Beder.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+Hydra (MIT-SPARK Lab, Massachusetts Institute of Technology)
+https://github.com/MIT-SPARK/Hydra
+Commit: 2e58a35baea629eee8838409771876acff015daf (fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/hydra.cmake (places, rooms, reconstruction/volumetric_map and utils sources compiled into the engine), cpp/src/wrapped_external/hydra_include.h
+
+BSD-3-Clause
+
+Copyright 2022 Massachusetts Institute of Technology.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+Spark-DSG (MIT-SPARK Lab, Massachusetts Institute of Technology)
+https://github.com/MIT-SPARK/Spark-DSG
+Commit: 3c40997e4ae739c56ed3cdd6ef5e882d403d8b64 (fetched at configure time, patched by cpp/cmake/external/fetch_content/hydra/patch.cmake, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/hydra.cmake (sources compiled into the engine; Hydra's place graph)
+
+BSD-3-Clause
+
+Copyright 2022 Massachusetts Institute of Technology.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+Spatial-Hash (MIT-SPARK Lab, Massachusetts Institute of Technology)
+https://github.com/MIT-SPARK/Spatial-Hash
+Commit: 8045892f34978d78870d806a50f8e5aefdbe52fc (fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/hydra.cmake (sources compiled into the engine; Hydra's voxel blocks)
+
+BSD-3-Clause
+
+BSD 3-Clause License
+
+Copyright (c) 2024, MIT-SPARK Lab, Massachusetts Institute of Technology.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+config_utilities (MIT-SPARK Lab, Massachusetts Institute of Technology)
+https://github.com/MIT-SPARK/config_utilities
+Commit: 291ab68087e00cbb7d9609f5e1caf8cf16436145 (fetched at configure time, not vendored)
+
+Used in: cpp/cmake/external/fetch_content/hydra.cmake (sources compiled into the engine; Hydra's configs)
+
+BSD-3-Clause
+
+BSD 3-Clause License
+
+Copyright (c) 2023, MIT-SPARK Lab, Massachusetts Institute of Technology.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+FFmpeg (the FFmpeg developers)
+https://ffmpeg.org
+Release: 8.1.3, the release source https://ffmpeg.org/releases/ffmpeg-8.1.3.tar.xz (SHA-256
+  7138d28c96d9d3e3af4ee3d8cad72741f8ffb40da90c1112235dea3ecd3178a3), downloaded at configure time
+  and built by cpp/cmake/external/fetch_content/ffmpeg.cmake; the source is not modified.
+
+Used in: cpp/src/wrapped_external/ffmpeg_include.h (single entry point), cpp/src/infrastructure/video/
+         (the Video input node: demuxing, decoding and pixel conversion).
+
+What is bundled: FFmpeg's shared libraries libavformat, libavcodec, libswscale and libavutil
+(avformat-*.dll, avcodec-*.dll, swscale-*.dll, avutil-*.dll on Windows), which the engine library
+links dynamically. They are built with only the parts the engine uses (the MOV/MP4, Matroska/WebM,
+AVI and MPEG-TS demuxers; the H.264, HEVC, VP8, VP9, MPEG-4 Part 2, MPEG-2, Motion JPEG and ProRes
+decoders), no program, no external library and none of FFmpeg's GPL or version-3 options. FFmpeg is
+licensed under the GNU Lesser General Public License version 2.1 or later; the license text, the
+exact configure line and the source pin ship in <bundle>/licenses/ffmpeg/, and the source tarball
+and build configuration are published with every release of this product. You may rebuild the
+libraries from that source with that configure line and replace the bundled ones.
+
+--------------------------------------------------------------------------------
+Eigen (Benoit Jacob, Gael Guennebaud and contributors)
+https://gitlab.com/libeigen/eigen
+Release: 3.4.0 (git tag, fetched at configure time, not vendored; cpp/cmake/external/fetch_content/eigen.cmake)
+
+Used in: cpp/src/wrapped_external/eigen_dense_include.h and the engine's geometry code, and the
+compiled Hydra / Spark-DSG sources; header-only, compiled into the engine library. COLMAP's build
+uses the same release (see COLMAP above).
+
+What is used: the unmodified headers of the Core, Dense and Geometry modules. EIGEN_MPL2_ONLY is
+defined for every translation unit, so no LGPL-licensed part of Eigen is compiled in. Eigen is
+licensed under the Mozilla Public License 2.0; its source code is available at the URL and tag
+above, and the license text ships in <bundle>/licenses/eigen_COPYING.MPL2.
+
+--------------------------------------------------------------------------------
+SAM 3 model weights (Meta Platforms, Inc.)
+https://github.com/facebookresearch/sam3 (code at 7f473cfd983d5eb43040ff608f66bff0d7bdcb53),
+https://huggingface.co/facebook/sam3 (checkpoint sam3.pt at revision
+3c879f39826c281e95690f02c7821c4de09afae7, SHA-256
+9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e)
+
+What is used: a derivative of the SAM Materials - the checkpoint exported by this product's build
+to ONNX with int8 weights (models/sam3/*.onnx; python/generators/sam3_generator.py) - used for
+text-prompted concept masks. Distributed under the SAM License, a copy of which ships in
+<bundle>/licenses/models/sam3_SAM_LICENSE ("SAM Materials" are provided by Meta under that
+Agreement; use is subject to its acceptable-use restrictions).
+
+--------------------------------------------------------------------------------
+Gemma 4 E4B instruction-tuned model, GGUF Q4_K_M (Google LLC; quantized by Unsloth AI)
+https://huggingface.co/google/gemma-4-E4B-it,
+https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF (file gemma-4-E4B-it-Q4_K_M.gguf at revision
+bfc15c382204943c3a8fff0c750b94ae2364d7a3)
+
+What is used: the unmodified quantized weights, run locally by llama.cpp for the relation graph
+(models/relation_llm/). Licensed under the Apache License, Version 2.0; the license text ships in
+<bundle>/licenses/models/gemma-4_LICENSE-2.0.txt. Gemma is a trademark of Google LLC; this
+product is not affiliated with or endorsed by Google.
+
+--------------------------------------------------------------------------------
+Desktop application components (Tauri shell and user interface)
+
+The application (PhaseTransition.exe and its user interface) is built with Tauri 2 (MIT OR
+Apache-2.0) and includes Rust crates and JavaScript packages under MIT, Apache-2.0, ISC, BSD,
+Zlib, Unicode-3.0, 0BSD, Unlicense, CC0 and MPL-2.0 licenses (cssparser, cssparser-macros,
+dtoa-short, selectors and option-ext are MPL-2.0, used unmodified; their source code is available
+from crates.io). The complete list with every license text ships in
+<bundle>/licenses/THIRD_PARTY_NOTICES_APP.txt.
+
+The user interface embeds the IBM Plex Sans and IBM Plex Mono fonts (Copyright 2017-2019 IBM
+Corp., via @fontsource), licensed under the SIL Open Font License 1.1, whose text ships in
+<bundle>/licenses/fonts/.

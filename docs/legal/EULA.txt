@@ -1,0 +1,79 @@
+PHASETRANSITION END-USER LICENSE AGREEMENT
+
+Please read this agreement before installing or using PhaseTransition (the "Software"). By
+installing, copying or using the Software you agree to these terms. If you do not agree, do not
+install or use the Software.
+
+1. LICENSE GRANT
+The author of PhaseTransition (the "Licensor") grants you a free, non-exclusive, non-transferable,
+revocable license to install and use the Software on devices you own or control, for personal,
+educational, research and other non-commercial purposes.
+
+2. RESTRICTIONS
+You may not:
+  (a) sell, rent, lease, sublicense or otherwise commercially exploit the Software;
+  (b) redistribute, publish or share the Software or its installer, other than by linking to the
+      official download page;
+  (c) reverse engineer, decompile or disassemble the Software, except to the extent that applicable
+      law expressly permits it despite this limitation, or that the license of a third-party
+      component listed in section 4 permits it for that component;
+  (d) remove or alter any copyright, trademark or license notice in the Software;
+  (e) use the Software in violation of any applicable law, or for military, warfare or nuclear
+      purposes, or in any way that the acceptable-use terms of the included AI models prohibit.
+
+3. OWNERSHIP
+The Software is licensed, not sold. The Licensor and its suppliers retain all rights not expressly
+granted in this agreement.
+
+4. THIRD-PARTY COMPONENTS AND MODELS
+The Software includes third-party software and machine-learning models, each licensed under its own
+terms. Those terms are listed in the NOTICE file and the licenses folder installed with the
+Software, and they govern your use of those components; nothing in this agreement limits rights
+those terms grant you. In particular:
+  - The Windows ML runtime and DirectML (onnxruntime.dll, DirectML.dll) are licensed by Microsoft
+    Corporation under the Microsoft Software License Terms in licenses\windowsml\license.txt.
+    Microsoft and its suppliers provide them "as is", without warranty, and are not liable to you
+    for any damages arising from them. These components may collect usage and diagnostic data and
+    send it to Microsoft as described in those terms.
+  - The SAM 3 model weights are provided by Meta under the SAM License
+    (licenses\models\sam3_SAM_LICENSE).
+  - The Gemma 4 model weights, downloaded on request, are provided by Google under the Apache
+    License 2.0 (licenses\models\gemma-4_LICENSE-2.0.txt).
+  - Some components are licensed under the GNU (Lesser) General Public License. Where those
+    licenses require it, their source code is offered on the official download page.
+
+5. DATA
+The Software processes your files locally. It does not send your projects, images or videos to
+the Licensor. It connects to the internet only to download components you request (such as the AI
+model), and when you follow links to the official pages.
+
+6. NO WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND
+NON-INFRINGEMENT. THE LICENSOR DOES NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE OR THAT ITS
+RESULTS, INCLUDING SIMULATION RESULTS AND AI MODEL OUTPUTS, ARE ACCURATE. YOU ARE RESPONSIBLE FOR
+VERIFYING ANY RESULT BEFORE RELYING ON IT.
+
+7. LIMITATION OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, NEITHER THE LICENSOR NOR ITS SUPPLIERS (INCLUDING
+MICROSOFT, META AND GOOGLE) SHALL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR
+PUNITIVE DAMAGES, OR ANY LOSS OF DATA, PROFITS OR BUSINESS, ARISING OUT OF OR RELATED TO THE
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE LICENSOR'S TOTAL LIABILITY SHALL
+NOT EXCEED ZERO (0) BECAUSE THE SOFTWARE IS PROVIDED FREE OF CHARGE, EXCEPT WHERE SUCH A LIMITATION
+IS NOT ALLOWED BY LAW.
+
+8. INDEMNITY
+You agree to indemnify and hold harmless the Licensor and its suppliers from any claim arising out
+of your use of the Software in breach of this agreement or of applicable law.
+
+9. TERMINATION
+This license ends automatically if you breach any of its terms. On termination you must uninstall
+the Software and delete all copies.
+
+10. TRADEMARKS
+Microsoft, Windows, DirectML, Gemma, Meta and other names are trademarks of their respective
+owners. Their mention does not imply any affiliation with or endorsement of the Software.
+
+11. GENERAL
+If any provision of this agreement is held unenforceable, the rest remains in effect. This
+agreement is the entire agreement between you and the Licensor about the Software.

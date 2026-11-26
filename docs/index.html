@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhaseTransition</title>
+  <meta name="description" content="Reconstruct a room from a video, build a scene graph of what is in it, and run a physics simulation in it.">
+  <meta property="og:title" content="PhaseTransition">
+  <meta property="og:description" content="Reconstruction, scene graph and simulation in one desktop app.">
+  <meta property="og:type" content="website">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="assets/img/app_icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body data-repo="chanchoen/PhaseTransition" data-installer="PhaseTransition_x64-setup.exe" data-youtube-id="">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="nav__inner">
+    <a class="brand" href="#top" aria-label="PhaseTransition, back to top">
+      <img src="assets/img/app_icon.svg" alt="" width="28" height="28">
+      <span>PhaseTransition</span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#demo">Demo</a>
+      <a href="#about">About</a>
+      <a href="#reconstruction">Reconstruction</a>
+      <a href="#scene-graph">Scene Graph</a>
+      <a href="#simulation">Simulation</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="button button--secondary button--small" href="https://github.com/chanchoen/PhaseTransition/releases/latest/download/PhaseTransition_x64-setup.exe" data-download>Download</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero__inner">
+      <h1>PhaseTransition</h1>
+      <p class="hero__lede">A desktop app I built to try one thing end to end: reconstruct a room from a video, build a scene graph of the objects in it, and run a physics simulation in the result.</p>
+      <ol class="hero__parts" aria-label="Parts">
+        <li><a href="#reconstruction">Reconstruction</a></li>
+        <li><a href="#scene-graph">Scene Graph</a></li>
+        <li><a href="#simulation">Simulation</a></li>
+      </ol>
+      <div class="hero__actions">
+        <a class="button button--primary" href="https://github.com/chanchoen/PhaseTransition/releases/latest/download/PhaseTransition_x64-setup.exe" data-download>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download for Windows
+        </a>
+        <a class="button button--secondary" href="#demo">Watch demo</a>
+      </div>
+      <p class="hero__meta" data-os-note>Windows 10/11 x64 with a Vulkan 1.3 GPU. macOS later.</p>
+    </div>
+  </section>
+
+  <section class="section" id="demo" aria-labelledby="demo-title">
+    <div class="section__head">
+      <h2 id="demo-title">Demo</h2>
+    </div>
+    <div class="teaser teaser--video" data-teaser data-video-download="">
+      <video src="assets/video/demo_video.mp4" poster="assets/img/demo_poster.webp" width="1072" height="720" controls muted loop playsinline preload="metadata" aria-label="Demo video"></video>
+    </div>
+    <p class="teaser__links" data-teaser-links hidden>
+      <a href="#" data-teaser-download>Download the video</a>
+    </p>
+    <div class="bench card" role="group" aria-labelledby="bench-title">
+      <div class="bench__head">
+        <h3 id="bench-title">Benchmark</h3>
+        <p class="bench__scene">Mip-NeRF 360 <em>garden</em> · 185 photos</p>
+      </div>
+      <dl class="bench__bars">
+        <div class="bench__row" style="--share: 0.583">
+          <dt><span class="bench__os">Windows 11</span><span class="bench__hw">RTX 4070 Laptop 8 GB · Ryzen 9 7945HX · 32 GB</span></dt>
+          <dd><span class="bench__bar" aria-hidden="true"></span><span class="bench__time">113.3 s</span></dd>
+        </div>
+        <div class="bench__row" style="--share: 1">
+          <dt><span class="bench__os">macOS</span><span class="bench__hw">Apple M1 Pro · 16 GB</span></dt>
+          <dd><span class="bench__bar" aria-hidden="true"></span><span class="bench__time">194.2 s</span></dd>
+        </div>
+      </dl>
+      <dl class="bench__quality">
+        <div><dt>PSNR</dt><dd>25.71 dB</dd></div>
+        <div><dt>SSIM</dt><dd>0.778</dd></div>
+        <div><dt>Gaussians</dt><dd>661,698</dd></div>
+      </dl>
+      <p class="bench__note">Both machines produce the same result. Time is the Splats stage: camera import, initialization, optimization and the held-out check, without app startup. Every 8th photo is held out (24 views); Standard quality, 3,800 + 1,900 iterations, Vulkan compute (MoltenVK on macOS). Dataset: <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> (Barron et al., CVPR 2022).</p>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="section__head">
+      <h2 id="about-title">About</h2>
+    </div>
+    <div class="prose">
+      <p>I wanted to see how far one app could go from a casual capture of a room to something you can simulate. PhaseTransition is the result: it chains reconstruction, a scene graph and a physics simulation, and keeps them in one project so each part can use what the previous one found.</p>
+      <p>It runs locally on your own GPU and needs no account. Expect rough edges; bug reports are welcome in <a href="https://github.com/chanchoen/PhaseTransition/issues" data-repo-link="issues">Issues</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="reconstruction" aria-labelledby="reconstruction-title">
+    <article class="part">
+      <figure class="media media--16x10">
+        <img src="assets/img/reconstruction.webp" alt="The Splats step optimizing a kitchen scene, with the training views below the viewport" width="1600" height="1000" loading="lazy" decoding="async">
+      </figure>
+      <div class="part__text">
+        <p class="part__index">01</p>
+        <h2 id="reconstruction-title">Reconstruction</h2>
+        <p>Start from a video, a folder of photos or an E57 scan. Keyframes are picked from the video and camera poses are solved with COLMAP, which comes with the installer. The room is then reconstructed as Gaussian Splatting on the GPU with Vulkan compute shaders, and checked against held-out views.</p>
+        <ul class="part__stages" aria-label="Stages"><li>Capture</li><li>Splats</li></ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="scene-graph" aria-labelledby="scene-graph-title">
+    <article class="part part--flip">
+      <figure class="media media--16x10">
+        <img src="assets/img/scene_graph.webp" alt="The Graph Build step showing the kitchen's objects and the relations inferred between them" width="1600" height="1000" loading="lazy" decoding="async">
+      </figure>
+      <div class="part__text">
+        <p class="part__index">02</p>
+        <h2 id="scene-graph-title">Scene Graph</h2>
+        <p>Name the objects you are looking for, such as a chair, a door or a cabinet. They are found in the captured images and placed on the reconstruction as 3D objects, grouped by room. A language model running locally then proposes how the objects relate: what supports what, what is inside, what is hinged or slides.</p>
+        <ul class="part__stages" aria-label="Stages"><li>Instances</li><li>Graph Build</li></ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="simulation" aria-labelledby="simulation-title">
+    <article class="part">
+      <figure class="media" data-video="" data-poster="">
+        <div class="placeholder"><span class="placeholder__label">Simulation</span><span class="placeholder__note">Clip coming soon</span></div>
+      </figure>
+      <div class="part__text">
+        <p class="part__index">03</p>
+        <h2 id="simulation-title">Simulation</h2>
+        <p>Relations from the scene graph become joints, and each object gets a collider. The scene runs in PhysX with articulated bodies. You can import a URDF robot, attach camera, depth and lidar sensors, and record episodes. The scene, its physics and the episodes export as USD, which opens in Isaac Sim.</p>
+        <ul class="part__stages" aria-label="Stages"><li>Structure</li><li>Physics</li><li>Robots &amp; Sensors</li><li>Scenarios &amp; Records</li></ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" id="download" aria-labelledby="download-title">
+    <div class="section__head">
+      <h2 id="download-title">Download</h2>
+    </div>
+    <div class="download">
+      <div class="card download__card">
+        <div class="download__title">
+          <img src="assets/img/app_icon.svg" alt="" width="40" height="40">
+          <div>
+            <p class="download__product">PhaseTransition for Windows</p>
+            <p class="download__version" data-release-version>Latest release</p>
+          </div>
+        </div>
+        <a class="button button--primary button--block" href="https://github.com/chanchoen/PhaseTransition/releases/latest/download/PhaseTransition_x64-setup.exe" data-download>Download for Windows (x64)</a>
+        <dl class="download__facts">
+          <div><dt>Installer</dt><dd data-release-size>—</dd></div>
+          <div><dt>Released</dt><dd data-release-date>—</dd></div>
+          <div class="download__sha"><dt>SHA-256</dt><dd><code data-release-sha>On the release page</code></dd></div>
+        </dl>
+        <p class="download__more"><a href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-repo-link="releases/latest">Release page</a> · <a href="https://github.com/chanchoen/PhaseTransition/releases" data-repo-link="releases">All releases</a></p>
+      </div>
+      <div class="download__info">
+        <h3>Requirements</h3>
+        <ul class="list">
+          <li>Windows 10 or 11, 64-bit</li>
+          <li>A GPU with a Vulkan 1.3 driver</li>
+          <li>About 8 GB of free disk space with the language model</li>
+        </ul>
+        <h3>Notes on installing</h3>
+        <ul class="list">
+          <li>The installer is not code-signed, so Windows SmartScreen may warn. Choose <em>More info</em>, then <em>Run anyway</em>, or compare the SHA-256 first.</li>
+          <li>Setup offers to download the language model for the scene graph relations (about 5 GB). You can skip it; everything else works without it.</li>
+          <li>It installs for your user account only. Uninstall from <em>Settings → Apps</em>; your projects stay.</li>
+          <li>Free to use for non-commercial purposes. See the <a href="legal/EULA.txt">license</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="releases" aria-labelledby="releases-title">
+    <div class="section__head">
+      <h2 id="releases-title">Release notes</h2>
+    </div>
+    <div class="releases" data-releases>
+      <article class="release card">
+        <header class="release__head"><h3>0.1.0</h3><span class="release__tag">First release</span></header>
+        <p>First public release (Windows 10/11 x64).</p>
+        <ul class="list">
+          <li>Capture: video, photo and E57 input; keyframe extraction and camera pose estimation.</li>
+          <li>Reconstruction: Gaussian Splatting optimization on the GPU.</li>
+          <li>Scene graph: objects found from a text prompt and placed in 3D; relations between objects from a local language model (optional 5 GB download during setup).</li>
+          <li>Simulation: physics with articulated bodies, robots and sensors, scenarios and recordings.</li>
+          <li>Export: USD scenes for Isaac Sim.</li>
+        </ul>
+      </article>
+    </div>
+    <p class="releases__all"><a href="https://github.com/chanchoen/PhaseTransition/releases" data-repo-link="releases">All releases</a></p>
+  </section>
+
+  <section class="section" id="credits" aria-labelledby="credits-title">
+    <div class="section__head">
+      <h2 id="credits-title">Built on</h2>
+      <p class="section__lede">This project stands on a lot of open work. Thanks to everyone behind it.</p>
+    </div>
+    <ul class="credits">
+      <li><strong>COLMAP</strong><span>camera poses</span></li>
+      <li><strong>llama.cpp</strong><span>on-device inference</span></li>
+      <li><strong>ONNX Runtime</strong><span>on-device inference</span></li>
+      <li><strong>PhysX</strong><span>physics</span></li>
+      <li><strong>OpenUSD</strong><span>scene files</span></li>
+      <li><strong>FFmpeg</strong><span>video decoding</span></li>
+      <li><strong>Tauri</strong><span>desktop shell</span></li>
+    </ul>
+    <p class="legal-links">
+      <a href="legal/NOTICE.txt">Third-party notices</a> ·
+      <a href="legal/THIRD_PARTY_NOTICES_APP.txt">App notices</a> ·
+      <a href="legal/MODEL_LICENSES.txt">Model licenses</a> ·
+      <a href="https://github.com/chanchoen/PhaseTransition/releases/latest" data-repo-link="releases/latest">FFmpeg source</a> ·
+      <a href="https://github.com/colmap/colmap/tree/4.2.1">COLMAP source</a> ·
+      <a href="legal/EULA.txt">License</a>
+    </p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__about">
+      <span>PhaseTransition · 2026</span>
+      <a href="mailto:ycheon.cheon@gmail.com">ycheon.cheon@gmail.com</a>
+    </div>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+</body>
+</html>
