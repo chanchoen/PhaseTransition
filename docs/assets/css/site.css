@@ -279,7 +279,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
 .bench__note { color: var(--text-3); font-size: 14px; line-height: 1.65; }
 
 .download { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: 48px; align-items: start; }
-.download__cards { display: grid; gap: 16px; position: sticky; top: calc(var(--nav-h) + 24px); }
+.download__cards { display: grid; gap: 16px; }
 .download__card { display: grid; gap: 20px; padding: 26px; }
 .download__title { display: flex; align-items: center; gap: 14px; }
 .download__product { font-weight: 600; font-size: 18px; }
@@ -332,7 +332,6 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
   .nav__links { display: none; }
   .nav__inner > .button { margin-left: auto; }
   .download { grid-template-columns: 1fr; gap: 32px; }
-  .download__cards { position: static; }
   .part, .part--flip { grid-template-columns: 1fr; gap: 20px; }
   .part--flip .media { order: 0; }
 }
